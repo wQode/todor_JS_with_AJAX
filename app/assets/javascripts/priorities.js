@@ -93,7 +93,16 @@ $(document).ready(function () {
         // $li.append($span3);
         // $li.append($span4);
         // $li.prependTo('#priority_list');
-        render_priority(p);
+        // render_priority(p);
+        // remove this priority from the array if have already
+        priorities = _(priorities).reject(function (priority) {
+          console.log(p.id, priority.id
+          return p.id == priority.id;
+        });
+        // Add the new of updated priority to the array
+        priorities.push(p);
+        // Show all the priorities
+        render_priorities();
       }
     });
   });
@@ -172,7 +181,17 @@ $(document).ready(function () {
         $li.append($span4);
         $li.prependTo('#priority-list');
   }
-  for (var i = 0; i < priorities.length; i++) {
-    render_priority( priorities[i]);
-  };
+
+  var render_priorities = function () {
+    $('#priority-list').empty();
+    priorities = _(priorities).sortBy('urgency');
+    // _(priorities).each(render_priority);
+    // _(priorities).each(function (p) {
+    //   render_priority(p);
+    _(priorities).each(render_priority);
+
+    };
+
+  render_priorities();
+
 });

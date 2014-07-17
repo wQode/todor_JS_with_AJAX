@@ -29,7 +29,7 @@ gem 'spring',        group: :development
 gem 'underscore-rails'
 gem 'haml'
 gem 'bcrypt-ruby'
-
+gem 'geocoder'
 gem 'rails_12factor', group: :production
 
 group :development do

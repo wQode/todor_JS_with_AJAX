@@ -11,9 +11,25 @@
 #  priority_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime
+#  address     :text
+#  latitude    :float            default(0.0)
+#  longitude   :float            default(0.0)
 #
 
 class Task < ActiveRecord::Base
-	belongs_to :user
-	belongs_to :priority
+  before_save :geocode
+
+  belongs_to :user
+  belongs_to :priority
+
+# don't want task.first.geocode , don't want it to be an 
+# instance variable/object
+  private
+  def geocode
+    result = Geocoder.search(self.address).first
+    if result.present?
+      self.latitude = result.latitude
+      self.longitude = result.longitude
+    end
+  end
 end
