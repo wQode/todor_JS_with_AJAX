@@ -1,0 +1,25 @@
+%ul#priority-list
+  - @priorities.each do |priority|
+    %li
+      %span.name= priority.name
+      %span.color.invisible= priority.color
+      %span.urgency.invisible= priority.urgency
+      %span.priority_id.invisible= priority.id
+
+= form_tag '/priorities', :class => 'invisible', :id => 'priorities' do
+  = label_tag :name
+  = text_field_tag :name
+
+  = label_tag :color
+  = color_field_tag :color
+
+  = label_tag :urgency
+  = number_field_tag :urgency
+
+  = hidden_field_tag :priority_id
+
+  = submit_tag 'Add Priority', :id => 'add_priority'
+  = submit_tag 'Update Priority', :id => 'update_priority', :class => 'invisible'
+  = button_tag 'Cancel', :id => 'cancel_priority'
+
+= button_tag 'New Priority', :id => 'new_priority'
