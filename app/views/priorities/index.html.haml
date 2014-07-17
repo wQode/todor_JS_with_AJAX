@@ -1,10 +1,16 @@
+%script
+  var priorities = [];
 %ul#priority-list
+%script
   - @priorities.each do |priority|
-    %li
-      %span.name= priority.name
-      %span.color.invisible= priority.color
-      %span.urgency.invisible= priority.urgency
-      %span.priority_id.invisible= priority.id
+    == priorities.push({ id: parseInt("#{priority.id}"), name: "#{priority.name}", urgency: parseInt("#{priority.urgency}"), color: "#{priority.color}" });
+    / this below is now done with JS - see  var render_priority = function (p)  in priorities.js
+    
+    / %li
+    /   %span.name= priority.name
+    /   %span.color.invisible= priority.color
+    /   %span.urgency.invisible= priority.urgency
+    /   %span.priority_id.invisible= priority.id
 
 = form_tag '/priorities', :class => 'invisible', :id => 'priorities' do
   = label_tag :name

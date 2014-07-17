@@ -29,8 +29,10 @@ $(document).ready(function () {
       // $('#urgency').val('');
     });  
     $('form')[0].reset();
+    // default state whenever form is toggled
     $('#add_priority').show();
     $('#update_priority').hide();
+    $('#name').focus();
   };
 
   $('#new_priority').on('click', toggle_form);
@@ -46,6 +48,7 @@ $(document).ready(function () {
     var priority_name = $('#name').val();
     var priority_color = $('#color').val();
     var priority_urgency = $('#urgency').val();
+    var priority_id = $('#priority_id').val();
 
     toggle_form("some variable");
 
@@ -62,31 +65,35 @@ $(document).ready(function () {
       },
       success: function(p) {
         // console.log('done', p);
-        var $li = $('<li/>');
+        // var $li = $('<li/>');
         
-        var $span1 = $('<span/>');
-        $span1.text(p.name);
+        // var $span1 = $('<span/>');
+        // $span1.addClass('name');
+        // $span1.text(p.name);
         
-        var $span2 = $('<span/>');
-        $span2.addClass('invisible color');
-        $span2.text(p.color);
+        // var $span2 = $('<span/>');
+        // $span2.addClass('invisible color');
+        // $span2.text(p.color);
 
-        var $span3 = $('<span/>');
-        $span3.addClass('invisible urgency');
-        $span3.text(p.urgency);
+        // var $span3 = $('<span/>');
+        // $span3.addClass('invisible urgency');
+        // $span3.text(p.urgency);
 
-        var $span4 = $('<span/>');
-        $span4.addClass('priority_id invisible');
-        $span4.text(p.id);
+        // var $span4 = $('<span/>');
+        // $span4.addClass('priority_id invisible');
+        // $span4.text(p.id);
 
-        var $box = $('<div/>');
-        $box.addClass('priority');
-        $box.css('background-color', p.color);
-        $li.prepend($box);
+        // var $box = $('<div/>');
+        // $box.addClass('priority');
+        // $box.css('background-color', p.color);
+        // $li.prepend($box);
 
-        $li.append($span1);
-        $li.append($span2);
-        $li.prependTo('#priority_list');
+        // $li.append($span1);
+        // $li.append($span2);
+        // $li.append($span3);
+        // $li.append($span4);
+        // $li.prependTo('#priority_list');
+        render_priority(p);
       }
     });
   });
@@ -111,6 +118,7 @@ $(document).ready(function () {
     $('#name').val( name );
     $('#color').val( color );
     $('#urgency').val( urgency );
+    $('#priority_id').val( priority_id );
 
   };
 
@@ -133,4 +141,38 @@ $(document).ready(function () {
   };
 
   render_priority_boxes();
+
+  var render_priority = function (p) {
+        var $li = $('<li/>');
+        
+        var $span1 = $('<span/>');
+        $span1.addClass('name');
+        $span1.text(p.name);
+        
+        var $span2 = $('<span/>');
+        $span2.addClass('invisible color');
+        $span2.text(p.color);
+
+        var $span3 = $('<span/>');
+        $span3.addClass('invisible urgency');
+        $span3.text(p.urgency);
+
+        var $span4 = $('<span/>');
+        $span4.addClass('priority_id invisible');
+        $span4.text(p.id);
+
+        var $box = $('<div/>');
+        $box.addClass('priority');
+        $box.css('background-color', p.color);
+        $li.prepend($box);
+
+        $li.append($span1);
+        $li.append($span2);
+        $li.append($span3);
+        $li.append($span4);
+        $li.prependTo('#priority-list');
+  }
+  for (var i = 0; i < priorities.length; i++) {
+    render_priority( priorities[i]);
+  };
 });
